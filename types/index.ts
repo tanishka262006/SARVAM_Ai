@@ -91,6 +91,59 @@ export interface ExtractedDocument {
   status: 'verified' | 'warning' | 'rejected';
 }
 
+export interface AuditCheck {
+  checkName: string;
+  status: 'pass' | 'warning' | 'fail';
+  details: string;
+  affectedDocuments: string[];
+  severity: 'low' | 'medium' | 'high';
+}
+
+export interface AuditResult {
+  overallStatus: 'clean' | 'warnings' | 'critical_mismatch';
+  checks: AuditCheck[];
+  rejectionRiskScore: number;
+  affidavitRequired: boolean;
+  affidavitTemplate?: string;
+  recommendations: string[];
+  summary: string;
+}
+
+export type ScamClassification = 'verified' | 'suspicious' | 'fraudulent';
+
+export interface ScamRiskFactor {
+  category: 'payment_demand' | 'phishing_link' | 'fake_scheme' | 'urgency_coercion' | 'sensitive_data' | 'unrealistic_promise';
+  severity: 'high' | 'medium' | 'low';
+  title: string;
+  description: string;
+}
+
+export interface OfficialSourceMatch {
+  schemeName?: string;
+  officialUrl: string;
+  sourceName: string;
+  isGovernmentDomain: boolean;
+  notes: string;
+}
+
+export interface ScamAnalysisResult {
+  classification: ScamClassification;
+  riskScore: number; // 0 to 100
+  confidence: number;
+  extractedMessage: string;
+  summary: string;
+  riskFactors: ScamRiskFactor[];
+  officialSources: OfficialSourceMatch[];
+  safetyAdvice: string[];
+  mandatoryWarning: string;
+  verifiedSchemeDetails?: {
+    name: string;
+    actualBenefit: string;
+    actualEligibility: string;
+    officialPortal: string;
+  };
+}
+
 export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant' | 'system';

@@ -8,6 +8,8 @@ import { SchemeCards } from '@/components/SchemeCards';
 import { CitizenProfileCard } from '@/components/CitizenProfileCard';
 import { DocumentUploadModal } from '@/components/DocumentUploadModal';
 import { SchemeExplanationModal } from '@/components/SchemeExplanationModal';
+import { DocumentAuditModal } from '@/components/DocumentAuditModal';
+import { SarkariSuraksha } from '@/components/SarkariSuraksha';
 import { matchSchemes } from '@/lib/schemes/matcher';
 import { DEMO_SCHEMES, DEMO_CITIZEN_RAMESH } from '@/lib/schemes/data';
 import {
@@ -28,6 +30,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
 
   // Explanation Modal state
   const [explanationModal, setExplanationModal] = useState<{
@@ -270,6 +273,11 @@ export default function Home() {
     }
   };
 
+  // Scroll smoothly to Sarkari Suraksha Scam Detector
+  const scrollToSuraksha = () => {
+    document.getElementById('sarkari-suraksha-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       
@@ -279,6 +287,7 @@ export default function Home() {
         onLanguageChange={setCurrentLanguage}
         onLoadDemo={handleLoadDemo}
         onReset={handleReset}
+        onOpenSuraksha={scrollToSuraksha}
         profile={profile}
         isDemoActive={isDemoActive}
       />
@@ -293,6 +302,8 @@ export default function Home() {
           document.getElementById('voice-assistant-section')?.scrollIntoView({ behavior: 'smooth' });
         }}
         onOpenUpload={() => setIsUploadModalOpen(true)}
+        onOpenAudit={() => setIsAuditModalOpen(true)}
+        onOpenSuraksha={scrollToSuraksha}
         currentLanguage={currentLanguage}
       />
 
@@ -351,6 +362,12 @@ export default function Home() {
               >
                 <span>📄 Upload or Test Document</span>
               </button>
+              <button
+                onClick={() => setIsAuditModalOpen(true)}
+                className="mt-2 w-full py-2.5 rounded-2xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition-all hover:shadow-md active:scale-95"
+              >
+                <span>🛡️ Audit My Documents</span>
+              </button>
             </div>
 
           </div>
@@ -367,6 +384,11 @@ export default function Home() {
             isExplainingId={isExplainingId}
             isSpeakingId={isSpeakingId}
           />
+        </div>
+
+        {/* Sarkari Suraksha: AI Government Scam Detector */}
+        <div id="sarkari-suraksha-section" className="pt-8 border-t border-slate-200">
+          <SarkariSuraksha currentLanguage={currentLanguage} />
         </div>
 
       </main>
@@ -391,6 +413,14 @@ export default function Home() {
         onClose={() => setIsUploadModalOpen(false)}
         currentProfile={profile}
         onConfirmDocument={handleConfirmDocument}
+        onOpenAudit={() => { setIsUploadModalOpen(false); setIsAuditModalOpen(true); }}
+      />
+
+      <DocumentAuditModal
+        isOpen={isAuditModalOpen}
+        onClose={() => setIsAuditModalOpen(false)}
+        currentProfile={profile}
+        currentLanguage={currentLanguage}
       />
 
       <SchemeExplanationModal

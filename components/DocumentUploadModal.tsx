@@ -21,6 +21,7 @@ interface DocumentUploadModalProps {
   onClose: () => void;
   currentProfile: CitizenProfile;
   onConfirmDocument: (extracted: ExtractedDocument) => void;
+  onOpenAudit?: () => void;
 }
 
 export const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
@@ -28,6 +29,7 @@ export const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
   onClose,
   currentProfile,
   onConfirmDocument,
+  onOpenAudit,
 }) => {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -283,6 +285,16 @@ export const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
             Cancel
           </button>
           
+          {onOpenAudit && extractedResult && (
+            <button
+              type="button"
+              onClick={() => { onClose(); onOpenAudit(); }}
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold text-xs shadow-sm hover:shadow-md transition-all active:scale-95"
+            >
+              <span>🛡️ Audit My Docs</span>
+            </button>
+          )}
+
           <button
             type="button"
             disabled={!extractedResult || isProcessing}

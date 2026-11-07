@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Sparkles, Globe, UserCheck, RefreshCw, ShieldCheck } from 'lucide-react';
+import { Sparkles, Globe, UserCheck, RefreshCw, ShieldCheck, ShieldAlert } from 'lucide-react';
 import { CitizenProfile, SupportedLanguage } from '@/types';
 
 interface HeaderProps {
@@ -9,6 +9,7 @@ interface HeaderProps {
   onLanguageChange: (lang: SupportedLanguage) => void;
   onLoadDemo: () => void;
   onReset: () => void;
+  onOpenSuraksha?: () => void;
   profile: CitizenProfile;
   isDemoActive: boolean;
 }
@@ -18,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
   onLanguageChange,
   onLoadDemo,
   onReset,
+  onOpenSuraksha,
   profile,
   isDemoActive,
 }) => {
@@ -51,6 +53,17 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Center Actions: Demo Mode Pill */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {onOpenSuraksha && (
+              <button
+                onClick={onOpenSuraksha}
+                className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-all shadow-sm active:scale-95"
+                title="AI Government Scam Detector"
+              >
+                <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
+                <span>Sarkari Suraksha</span>
+              </button>
+            )}
+
             <button
               onClick={onLoadDemo}
               className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-sm ${

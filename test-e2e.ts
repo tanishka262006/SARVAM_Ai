@@ -48,12 +48,12 @@ async function runTests() {
   const eligible = demoMatches.filter(m => m.status === 'eligible');
   assert(eligible.length > 0, `Ramesh Kumar is eligible for ${eligible.length} schemes (e.g. ${eligible[0].scheme.name})`);
   const pmSym = demoMatches.find(m => m.scheme.id === 'pm-sym');
-  assert(pmSym && pmSym.status === 'eligible', 'PM-SYM correctly marked as Eligible for unorganised worker');
+  assert(Boolean(pmSym && pmSym.status === 'eligible'), 'PM-SYM correctly marked as Eligible for unorganised worker');
 
   // Test farmer status mismatch
   const nonFarmerProfile = { ...DEMO_CITIZEN_RAMESH, farmerStatus: false };
   const pmKisanMatch = demoMatches.find(m => m.scheme.id === 'pm-kisan');
-  assert(pmKisanMatch && pmKisanMatch.status === 'not_eligible', 'PM-KISAN correctly marked as Not Eligible for non-farmer');
+  assert(Boolean(pmKisanMatch && pmKisanMatch.status === 'not_eligible'), 'PM-KISAN correctly marked as Not Eligible for non-farmer');
 
   // 2. SARVAM-105B CONVERSATION (Progressive Questioning)
   console.log('\n--- 2. Testing Sarvam-105B Reasoning & Progressive Questioning ---');
@@ -147,7 +147,7 @@ async function runTests() {
   let keyFoundInClientBundle = false;
   const staticDir = path.join(process.cwd(), '.next', 'static');
   if (fs.existsSync(staticDir)) {
-    function searchDir(dir: string) {
+    const searchDir = (dir: string) => {
       const files = fs.readdirSync(dir);
       for (const f of files) {
         const full = path.join(dir, f);
@@ -160,7 +160,7 @@ async function runTests() {
           }
         }
       }
-    }
+    };
     searchDir(staticDir);
   }
   assert(!keyFoundInClientBundle, 'SARVAM_API_KEY is NOT exposed in any client JavaScript bundles');

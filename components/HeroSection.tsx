@@ -8,6 +8,8 @@ interface HeroSectionProps {
   onStartVoice: () => void;
   onStartTyping: () => void;
   onOpenUpload: () => void;
+  onOpenAudit: () => void;
+  onOpenSuraksha?: () => void;
   currentLanguage: SupportedLanguage;
 }
 
@@ -15,6 +17,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onStartVoice,
   onStartTyping,
   onOpenUpload,
+  onOpenAudit,
+  onOpenSuraksha,
   currentLanguage,
 }) => {
   return (
@@ -78,6 +82,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <FileText className="w-4 h-4 text-emerald-600" />
             <span>📄 Upload document</span>
           </button>
+
+          {/* Audit CTA */}
+          <button
+            onClick={onOpenAudit}
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-200 text-rose-700 font-semibold text-sm hover:bg-rose-50 hover:border-rose-300 shadow-sm active:scale-95 transition-all"
+          >
+            <ShieldAlert className="w-4 h-4 text-rose-500" />
+            <span>🛡️ Audit My Documents</span>
+          </button>
+
+          {/* Sarkari Suraksha CTA */}
+          {onOpenSuraksha && (
+            <button
+              onClick={onOpenSuraksha}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-md active:scale-95 transition-all"
+            >
+              <ShieldAlert className="w-4 h-4 text-rose-400" />
+              <span>🚨 Scam Detector</span>
+            </button>
+          )}
         </div>
 
         {/* Mandatory Safety / Trust Disclaimer */}

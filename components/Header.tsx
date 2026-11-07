@@ -1,7 +1,16 @@
 'use client';
 
 import React from 'react';
-import { Sparkles, Globe, UserCheck, RefreshCw, ShieldCheck, ShieldAlert } from 'lucide-react';
+import {
+  Globe,
+  RefreshCw,
+  ShieldAlert,
+  UserCheck,
+  Sparkles,
+  Layers,
+  FileCheck2,
+  CheckCircle2
+} from 'lucide-react';
 import { CitizenProfile, SupportedLanguage } from '@/types';
 
 interface HeaderProps {
@@ -24,67 +33,94 @@ export const Header: React.FC<HeaderProps> = ({
   isDemoActive,
 }) => {
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all">
+    <header className="sticky top-0 z-40 bg-[#FBFBFA]/95 backdrop-blur-md border-b border-[#E8E5DE] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           
-          {/* Logo & Branding */}
-          <div className="flex items-center gap-3">
-            <div className="relative flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-tr from-orange-500 via-amber-500 to-emerald-600 shadow-md shadow-orange-500/20 text-white font-bold text-xl tracking-tight">
-              <span>🇮🇳</span>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-600 border-2 border-white flex items-center justify-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
-              </div>
+          {/* Brand Mark & Title */}
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-forest-800 flex items-center justify-center text-white font-bold text-lg shadow-sm border border-forest-900 shrink-0">
+              <span className="font-serif tracking-tighter">सं</span>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                  Sarkari<span className="text-orange-600">Sahayak</span>
-                </h1>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-800 font-semibold border border-orange-200">
-                  Sarvam AI
+                <span className="text-lg sm:text-xl font-bold tracking-tight text-forest-900">
+                  Sarkari<span className="text-forest-700 font-medium">Sahayak</span>
+                </span>
+                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-forest-50 border border-forest-200 text-forest-800 text-[10px] font-semibold tracking-wide uppercase">
+                  <span>GovTech</span>
+                  <span className="w-1 h-1 rounded-full bg-forest-600"></span>
+                  <span>Sarvam AI</span>
                 </span>
               </div>
-              <p className="text-xs text-slate-500 font-medium hidden sm:block">
-                सरकारी सहायक • AI Citizen Scheme Portal
+              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
+                सरकारी सहायक • Citizen Scheme & Entitlements Platform
               </p>
             </div>
           </div>
 
-          {/* Center Actions: Demo Mode Pill */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {onOpenSuraksha && (
-              <button
-                onClick={onOpenSuraksha}
-                className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-all shadow-sm active:scale-95"
-                title="AI Government Scam Detector"
-              >
-                <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
-                <span>Sarkari Suraksha</span>
-              </button>
-            )}
+          {/* Center Navigation Shortcuts */}
+          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
+            <a
+              href="#voice-assistant-section"
+              className="hover:text-forest-800 transition-colors py-1 flex items-center gap-1.5"
+            >
+              <span>Voice Intake</span>
+            </a>
+            <a
+              href="#schemes-section"
+              className="hover:text-forest-800 transition-colors py-1 flex items-center gap-1.5"
+            >
+              <span>Scheme Directory</span>
+            </a>
+            <a
+              href="#citizen-profile-section"
+              className="hover:text-forest-800 transition-colors py-1 flex items-center gap-1.5"
+            >
+              <span>Citizen Ledger</span>
+            </a>
+            <button
+              onClick={onOpenSuraksha}
+              className="hover:text-rose-700 transition-colors py-1 flex items-center gap-1 text-slate-700"
+            >
+              <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
+              <span>Scam Detector</span>
+            </button>
+          </nav>
 
+          {/* Right Controls: Demo Mode, Language Selector, Reset */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Demo Mode Button */}
             <button
               onClick={onLoadDemo}
-              className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-sm ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                 isDemoActive
-                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-300 ring-2 ring-emerald-400/20'
-                  : 'bg-gradient-to-r from-orange-500 to-amber-600 text-white hover:from-orange-600 hover:to-amber-700 active:scale-95 shadow-orange-500/25'
+                  ? 'bg-forest-50 text-forest-800 border-forest-300 ring-1 ring-forest-400/20'
+                  : 'bg-white hover:bg-forest-50/50 text-slate-700 hover:text-forest-900 border-[#D8D4CA] shadow-sm'
               }`}
-              title="Test with pre-configured Pune delivery worker profile"
+              title="Load pre-verified Pune delivery worker profile"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{isDemoActive ? 'Demo: Ramesh Kumar' : 'Try Demo Mode'}</span>
+              {isDemoActive ? (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-forest-700" />
+                  <span className="hidden sm:inline">Profile:</span>
+                  <span>Ramesh Kumar</span>
+                </>
+              ) : (
+                <>
+                  <UserCheck className="w-3.5 h-3.5 text-forest-700" />
+                  <span>Try Demo Profile</span>
+                </>
+              )}
             </button>
 
-            {/* Language Selector Dropdown */}
-            <div className="relative inline-flex items-center rounded-xl bg-slate-100 p-1 border border-slate-200">
-              <Globe className="w-4 h-4 ml-2 mr-1 text-slate-500 hidden sm:inline" />
+            {/* Language Selector (High Contrast Segmented Control) */}
+            <div className="inline-flex items-center rounded-lg bg-ivory-200 p-0.5 border border-[#DBD7CE]">
               <button
                 onClick={() => onLanguageChange('en-IN')}
-                className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${
+                className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all ${
                   currentLanguage === 'en-IN'
-                    ? 'bg-white text-slate-900 shadow-sm'
+                    ? 'bg-white text-forest-900 shadow-sm border border-[#E0DCD4]'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -92,9 +128,9 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
               <button
                 onClick={() => onLanguageChange('hi-IN')}
-                className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${
+                className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all ${
                   currentLanguage === 'hi-IN'
-                    ? 'bg-white text-orange-600 shadow-sm'
+                    ? 'bg-white text-forest-900 shadow-sm border border-[#E0DCD4]'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -102,9 +138,9 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
               <button
                 onClick={() => onLanguageChange('mr-IN')}
-                className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${
+                className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all ${
                   currentLanguage === 'mr-IN'
-                    ? 'bg-white text-emerald-700 shadow-sm'
+                    ? 'bg-white text-forest-900 shadow-sm border border-[#E0DCD4]'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -115,12 +151,14 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Reset button */}
             <button
               onClick={onReset}
-              className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all"
-              title="Reset conversation & profile"
+              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-ivory-200 rounded-lg transition-all"
+              title="Reset intake session"
+              aria-label="Reset intake session"
             >
               <RefreshCw className="w-4 h-4" />
             </button>
           </div>
+
         </div>
       </div>
     </header>

@@ -9,33 +9,56 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        saffron: {
-          50: '#fff7ed',
-          100: '#ffedd5',
-          200: '#fed7aa',
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#f97316',
-          600: '#ea580c',
-          700: '#c2410c',
-          800: '#9a3412',
-          900: '#7c2d12',
+        forest: {
+          50: '#F0F7F3',
+          100: '#DFEFE6',
+          200: '#BFDFCE',
+          300: '#94C7AE',
+          400: '#5EA783',
+          500: '#348B61',
+          600: '#22704B',
+          700: '#1A5A3C',
+          800: '#144A32', // Primary Brand Forest Green
+          900: '#0D3823', // Deep Forest Navy
+          950: '#072416',
         },
-        tiranga: {
-          orange: '#FF671F',
-          white: '#FFFFFF',
-          green: '#046A38',
-          navy: '#06038D',
-        }
+        ivory: {
+          50: '#FCFBF9',
+          100: '#F9F8F5',
+          200: '#F3F1EC',
+          300: '#E9E6DF',
+          400: '#DBD7CE',
+          500: '#C5C0B4',
+        },
+        navy: {
+          800: '#1E293B',
+          900: '#0F172A',
+          950: '#020617',
+        },
+        saffron: {
+          50: '#FFFBEB',
+          100: '#FEF3C7',
+          200: '#FDE68A',
+          300: '#FCD34D',
+          400: '#FBBF24',
+          500: '#F59E0B',
+          600: '#D97706',
+          700: '#B45309', // Sophisticated Civic Saffron
+          800: '#92400E',
+          900: '#78350F',
+        },
+      },
+      fontFamily: {
+        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ripple': 'ripple 1.5s ease-out infinite',
+        'soundwave': 'soundwave 1.2s ease-in-out infinite',
       },
       keyframes: {
-        ripple: {
-          '0%': { transform: 'scale(0.95)', opacity: '1' },
-          '100%': { transform: 'scale(1.4)', opacity: '0' },
+        soundwave: {
+          '0%, 100%': { height: '8px' },
+          '50%': { height: '32px' },
         }
       }
     },
